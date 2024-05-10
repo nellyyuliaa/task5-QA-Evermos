@@ -13,7 +13,7 @@ Untuk melakukan pengujian beban menggunakan k6 pada dua API—POST dan PUT—dar
 1. **Buat File Skrip**:
    - Buat file JavaScript untuk setiap tipe permintaan. Misalnya, `post_test.js` untuk POST dan `put_test.js` untuk PUT.
 2. **Tulis Skrip Pengujian**:
-   - **POST Test** (`post_test.js`):
+   - **POST Test** (`http_post.js`):
      ```javascript
      import http from 'k6/http';
      import { check } from 'k6';
@@ -31,12 +31,11 @@ Untuk melakukan pengujian beban menggunakan k6 pada dua API—POST dan PUT—dar
      check(res, {
         'response code was 201': (res) => res.status === 201,
     });
-
    return res;
    }
      ```
      
-   - **PUT Test** (`put_test.js`):
+  - **PUST Test** (`http_put.js`):
      ```javascript
      import http from 'k6/http';
      import { check } from 'k6';
@@ -53,9 +52,8 @@ Untuk melakukan pengujian beban menggunakan k6 pada dua API—POST dan PUT—dar
     check(res, {
         'response code was 200': (res) => res.status === 200,
     });
-
-     return res;
-     }
+    return res;
+    }
      ```
      
 - **Integration.js** (`integration.js`):
