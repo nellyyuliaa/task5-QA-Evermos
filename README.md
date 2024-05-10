@@ -1,70 +1,74 @@
 # task5-QA-Evermos
-Proyek ini bertujuan untuk melakukan pengujian beban menggunakan *k6 load test* pada dua API—POST dan PUT—yang mengakses layanan dari Reqres.in. Pengujian ini dilakukan untuk menilai kinerja dan keandalan dari metode POST dan PUT dalam menangani permintaan ke server Reqres.in.
 
-Untuk melakukan pengujian beban menggunakan k6 pada dua API—POST dan PUT—dari layanan Reqres.in, Anda perlu mengikuti langkah-langkah berikut:
+## Deskripsi Proyek
+Proyek ini bertujuan untuk melakukan pengujian beban menggunakan k6 load test pada dua API—POST dan PUT—yang mengakses layanan dari Reqres.in. Pengujian ini dilakukan untuk menilai kinerja dan keandalan dari metode POST dan PUT dalam menangani permintaan ke server Reqres.in.
+
+## Langkah-langkah Pengujian
 
 ### Langkah 1: Persiapan Lingkungan
-1. **Instal k6**: Pastikan Anda telah menginstal k6. Jika belum, Anda dapat menginstalnya dengan mengikuti instruksi di [situs resmi k6](https://k6.io/docs/getting-started/installation/).
+1. **Instalasi k6**:
+   Pastikan Anda telah menginstal k6. Jika belum, Anda dapat menginstalnya dengan mengikuti instruksi di [situs resmi k6](https://k6.io/docs/getting-started/installation/).
+
 2. **Setup Proyek**:
    - Buat folder untuk proyek pengujian Anda.
    - Inisialisasi proyek dengan `npm init` jika Anda berencana menggunakan npm, atau cukup buat beberapa file script di dalam folder tersebut.
 
 ### Langkah 2: Buat Skrip Tes
 1. **Buat File Skrip**:
-   - Buat file JavaScript untuk setiap tipe permintaan. Misalnya, `post_test.js` untuk POST dan `put_test.js` untuk PUT.
+   - Buat file JavaScript untuk setiap tipe permintaan. Misalnya, `post_test.js` untuk POST dan `put_test.js` untuk PUT dan `integration.js untuk menangani pengujian integrasi antar komponen, dan `performance.js` untuk fokus pada pengujian performa keseluruhan sistem. Hasil dari semua pengujian ini disajikan dalam report.html, yang memberikan ringkasan komprehensif dan analisis dari berbagai tes yang dilakukan.
+
 2. **Tulis Skrip Pengujian**:
-   - **POST Test** (`http_post.js`):
+   - **HTTP_POST** (`http_post.js`):
      ```javascript
      import http from 'k6/http';
      import { check } from 'k6';
 
      export default function postRequest(payload) {
-      const params = {
-        headers: {
-            'Content-Type': 'application/json',
-        },
-     };
+       const params = {
+         headers: {
+           'Content-Type': 'application/json',
+         },
+       };
 
-     const res = http.post('https://reqres.in/api/users', JSON.stringify(payload), params);
+       const res = http.post('https://reqres.in/api/users', JSON.stringify(payload), params);
+       check(res, {
+         'response code was 201': (res) => res.status === 201,
+       });
 
-     // Menambahkan pengecekan response code
-     check(res, {
-        'response code was 201': (res) => res.status === 201,
-    });return res;}
+       return res;
+     }
      ```
      
-  - **PUST Test** (`http_put.js`):
+   - **HTTP_PUT** (`http_put.js`):
      ```javascript
      import http from 'k6/http';
      import { check } from 'k6';
 
      export default function putRequest(payload) {
-     const params = {
-        headers: {
-            'Content-Type': 'application/json',
-     },
-   };
-   
-   const res = http.put('https://reqres.in/api/users/2', JSON.stringify(payload), params);
+       const params = {
+         headers: {
+           'Content-Type': 'application/json',
+         },
+       };
 
-     // Menambahkan pengecekan response code
-    check(res, {
-        'response code was 200': (res) => res.status === 200,
-    });
-    return res;
-    }
+       const res = http.put('https://reqres.in/api/users/2', JSON.stringify(payload), params);
+       check(res, {
+         'response code was 200': (res) => res.status === 200,
+       });
+
+       return res;
+     }
      ```
-     
-- **Integration.js** (`integration.js`):
-     ```javascript
+
+ - **INTEGRATION** (`integration.js`):
      import http from 'k6/http';
      import { check, sleep, group } from 'k6';
      import http_post from './http_post.js';
      import http_put from './http_put.js';
 
-    const BASE_URL = 'https://reqres.in';
+     const BASE_URL = 'https://reqres.in';
 
-    export default function () {
+     export default function () {
      const name = 'morpheus';
      const job = 'zion resident';
 
@@ -75,15 +79,15 @@ Untuk melakukan pengujian beban menggunakan k6 pada dua API—POST dan PUT—dar
      job: job
      });
 
-    const params = {
-    headers: {
-        'Content-Type': 'application/json',
-      },
-    };
+     const params = {
+     headers: {
+     'Content-Type': 'application/json',
+     },
+     };
 
-    let res = http.post(FULL_URL, payload, params);
+     let res = http.post(FULL_URL, payload, params);
 
-    check(res, {
+     check(res, {
       'response code was 201': (res) => res.status === 201,
       'response name should same with request': (res) => {
         const response = JSON.parse(res.body);
@@ -126,10 +130,9 @@ Untuk melakukan pengujian beban menggunakan k6 pada dua API—POST dan PUT—dar
     });
   });
 }
- ```
 
-- **Performance.js** (`performance.js`):
-     ```javascript
+```
+- **PERFORMANCE** (`performance.js`):
 import http_post from './http_post.js';
 import http_put from './http_put.js';
 import { check, sleep, group } from 'k6';
@@ -191,20 +194,20 @@ export default function () {
                 return response && response.job === job;
             },
         });
-    });}
-```
+    });
+}
+
 
 ### Langkah 3: Jalankan Tes
 1. **Eksekusi Skrip**:
    - Buka terminal.
-   - Jalankan tes dengan perintah k6:
+   - Jalankan tes dengan perintah k6 untuk masing-masing skrip:
      ```bash
-     k6 run post_test.js
-     k6 run put_test.js
-     k6 run integrations.js
+     k6 run http_post.js
+     k6 run http_put.js
+     k6 run integration.js
      k6 run performance.js
      ```
-   - Atau, jalankan keduanya secara bersamaan dengan skrip batch atau bash script.
 
 ### Langkah 4: Analisis Hasil
 - Setelah menjalankan tes, k6 akan menampilkan hasil pengujian yang mencakup metrik seperti durasi permintaan, jumlah kesalahan, dll.
