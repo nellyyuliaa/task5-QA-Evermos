@@ -61,9 +61,9 @@ Proyek ini bertujuan untuk melakukan pengujian beban menggunakan k6 load test pa
      ```
 
  - **INTEGRATION** (`integration.js`):
-   ![image](https://github.com/nellyyuliaa/task5-QA-Evermos/assets/122393200/d082543d-37cc-4371-a7ba-1624514599e0)
-   ![image](https://github.com/nellyyuliaa/task5-QA-Evermos/assets/122393200/72db095a-6e86-4ea5-af98-a76bf1db5b6d)
-   ![image](https://github.com/nellyyuliaa/task5-QA-Evermos/assets/122393200/8645ac00-fdf6-4535-9006-2f8083ea0bd0)
+![image](https://github.com/nellyyuliaa/task5-QA-Evermos/assets/122393200/01f5465f-4649-4722-a8ad-8032184ce75f)
+![image](https://github.com/nellyyuliaa/task5-QA-Evermos/assets/122393200/bf4e8ea9-c0a8-45b0-a0c2-a1dd981095c0)
+![image](https://github.com/nellyyuliaa/task5-QA-Evermos/assets/122393200/31984e0c-21ce-42ac-a93a-1fd21c91c661)
 
 - **PERFORMANCE** (`performance.js`):
 ![image](https://github.com/nellyyuliaa/task5-QA-Evermos/assets/122393200/2eb71d36-774a-45e2-96bf-929ccf647950)
