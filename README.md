@@ -25,14 +25,14 @@ Untuk melakukan pengujian beban menggunakan k6 pada dua API—POST dan PUT—dar
         },
      };
 
-    const res = http.post('https://reqres.in/api/users', JSON.stringify(payload), params);
+     const res = http.post('https://reqres.in/api/users', JSON.stringify(payload), params);
 
-    // Menambahkan pengecekan response code
-    check(res, {
+     // Menambahkan pengecekan response code
+     check(res, {
         'response code was 201': (res) => res.status === 201,
     });
-   
-    return res;
+
+   return res;
    }
      ```
      
@@ -45,17 +45,16 @@ Untuk melakukan pengujian beban menggunakan k6 pada dua API—POST dan PUT—dar
      const params = {
         headers: {
             'Content-Type': 'application/json',
-        },
-    };
+     },
+   };
+     const res = http.put('https://reqres.in/api/users/2', JSON.stringify(payload), params);
 
-    const res = http.put('https://reqres.in/api/users/2', JSON.stringify(payload), params);
-
-    // Menambahkan pengecekan response code
+     // Menambahkan pengecekan response code
     check(res, {
         'response code was 200': (res) => res.status === 200,
     });
 
-    return res;
+     return res;
      }
      ```
      
