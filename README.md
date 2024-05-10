@@ -132,6 +132,7 @@ Proyek ini bertujuan untuk melakukan pengujian beban menggunakan k6 load test pa
 }
 
 ```
+
 - **PERFORMANCE** (`performance.js`):
 import http_post from './http_post.js';
 import http_put from './http_put.js';
