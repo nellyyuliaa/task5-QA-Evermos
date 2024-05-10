@@ -23,7 +23,7 @@ Untuk melakukan pengujian beban menggunakan k6 pada dua API—POST dan PUT—dar
         headers: {
             'Content-Type': 'application/json',
         },
-    };
+     };
 
     const res = http.post('https://reqres.in/api/users', JSON.stringify(payload), params);
 
@@ -31,8 +31,7 @@ Untuk melakukan pengujian beban menggunakan k6 pada dua API—POST dan PUT—dar
     check(res, {
         'response code was 201': (res) => res.status === 201,
     });
-
-
+   
     return res;
    }
      ```
