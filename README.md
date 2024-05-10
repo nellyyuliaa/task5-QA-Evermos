@@ -30,9 +30,7 @@ Untuk melakukan pengujian beban menggunakan k6 pada dua API—POST dan PUT—dar
      // Menambahkan pengecekan response code
      check(res, {
         'response code was 201': (res) => res.status === 201,
-    });
-   return res;
-   }
+    });return res;}
      ```
      
   - **PUST Test** (`http_put.js`):
@@ -46,7 +44,8 @@ Untuk melakukan pengujian beban menggunakan k6 pada dua API—POST dan PUT—dar
             'Content-Type': 'application/json',
      },
    };
-     const res = http.put('https://reqres.in/api/users/2', JSON.stringify(payload), params);
+   
+   const res = http.put('https://reqres.in/api/users/2', JSON.stringify(payload), params);
 
      // Menambahkan pengecekan response code
     check(res, {
@@ -192,8 +191,7 @@ export default function () {
                 return response && response.job === job;
             },
         });
-    });
-}
+    });}
 ```
 
 ### Langkah 3: Jalankan Tes
