@@ -18,14 +18,13 @@ Untuk melakukan pengujian beban menggunakan k6 pada dua API—POST dan PUT—dar
      import http from 'k6/http';
      import { check } from 'k6';
 
-export default function postRequest(payload) {
-    const params = {
+     export default function postRequest(payload) {
+      const params = {
         headers: {
             'Content-Type': 'application/json',
         },
     };
 
-    
     const res = http.post('https://reqres.in/api/users', JSON.stringify(payload), params);
 
     // Menambahkan pengecekan response code
@@ -35,15 +34,16 @@ export default function postRequest(payload) {
 
 
     return res;
-}
+   }
      ```
+     
    - **PUT Test** (`put_test.js`):
      ```javascript
      import http from 'k6/http';
      import { check } from 'k6';
 
-export default function putRequest(payload) {
-    const params = {
+     export default function putRequest(payload) {
+     const params = {
         headers: {
             'Content-Type': 'application/json',
         },
@@ -57,8 +57,9 @@ export default function putRequest(payload) {
     });
 
     return res;
-}
+     }
      ```
+     
 - **Integration.js** (`integration.js`):
      ```javascript
      import http from 'k6/http';
