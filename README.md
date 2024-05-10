@@ -61,77 +61,11 @@ Proyek ini bertujuan untuk melakukan pengujian beban menggunakan k6 load test pa
      ```
 
  - **INTEGRATION** (`integration.js`):
-     import http from 'k6/http';
-     import { check, sleep, group } from 'k6';
-     import http_post from './http_post.js';
-     import http_put from './http_put.js';
+   ![image](https://github.com/nellyyuliaa/task5-QA-Evermos/assets/122393200/d082543d-37cc-4371-a7ba-1624514599e0)
+   ![image](https://github.com/nellyyuliaa/task5-QA-Evermos/assets/122393200/72db095a-6e86-4ea5-af98-a76bf1db5b6d)
+   ![image](https://github.com/nellyyuliaa/task5-QA-Evermos/assets/122393200/8645ac00-fdf6-4535-9006-2f8083ea0bd0)
 
-     const BASE_URL = 'https://reqres.in';
-
-     export default function () {
-     const name = 'morpheus';
-     const job = 'zion resident';
-
-     group('Create with valid request should succeed', function () {
-     const FULL_URL = `${BASE_URL}/api/users`;
-     const payload = JSON.stringify({
-     name: name,
-     job: job
-     });
-
-     const params = {
-     headers: {
-     'Content-Type': 'application/json',
-     },
-     };
-
-     let res = http.post(FULL_URL, payload, params);
-
-     check(res, {
-      'response code was 201': (res) => res.status === 201,
-      'response name should same with request': (res) => {
-        const response = JSON.parse(res.body);
-        return response.name === name;
-      },
-      'response job should same with request': (res) => {
-        const response = JSON.parse(res.body);
-        return response.job === job;
-      },
-    });
-  });
-
-  sleep(1);
-
-  group('Update with valid request should succeed', function () {
-    const FULL_URL = `${BASE_URL}/api/users/2`;
-    const payload = JSON.stringify({
-      name: name,
-      job: job
-    });
-
-    const params = {
-      headers: {
-        'Content-Type': 'application/json',
-      },
-    };
-
-    let res = http.put(FULL_URL, payload, params);
-
-    check(res, {
-      'response code was 200': (res) => res.status === 200,
-      'response name should same with request': (res) => {
-        const response = JSON.parse(res.body);
-        return response.name === name;
-      },
-      'response job should same with request': (res) => {
-        const response = JSON.parse(res.body);
-        return response.job === job;
-      },
-    });
-  });
-}
-
-```- **PERFORMANCE** (`performance.js`):
+- **PERFORMANCE** (`performance.js`):
 import http_post from './http_post.js';
 import http_put from './http_put.js';
 import { check, sleep, group } from 'k6';
